@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sortido — Private similar photo cleanup for iPhone</title>
+  <meta name="description" content="Sortido finds duplicate and similar photos, recommends the best one to keep, and explains why. Compare side by side, zoom into detail, and review every deletion before it happens. On-device and private." />
+
+  <!-- Open Graph / social -->
+  <meta property="og:title" content="Sortido — Private similar photo cleanup" />
+  <meta property="og:description" content="Compare similar photos, understand the recommendation, and confirm before anything is deleted. On-device and private." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #14121A;
+      --ink2: #4A4640;
+      --ink3: #85807A;
+      --bg: #F5F3EE;
+      --backdrop: #EDE8DA;
+      --card: #FFFFFF;
+      --card-active: #ECE6D6;
+      --accent: #2B4CFF;
+      --keep: #B9F227;
+      --pink: #FF3D8A;
+      --yellow: #FFE347;
+      --teal: #0E9E96;
+      --radius: 18px;
+      --shadow: 5px 5px 0 var(--ink);
+      --shadow-sm: 3px 3px 0 var(--ink);
+      --border: 2.5px solid var(--ink);
+      --font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- Nav ---------- */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(245,243,238,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: var(--border);
+    }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1080px; margin: 0 auto; padding: 14px 24px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 20px; letter-spacing: -0.02em;
+      text-decoration: none; color: var(--ink);
+    }
+    .logo-mark {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--accent); border: 2px solid var(--ink);
+      display: grid; place-items: center;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .logo-mark span { color: #fff; font-weight: 700; font-size: 17px; line-height: 1; }
+    .nav-tag {
+      font-size: 12px; font-weight: 600; color: var(--ink2);
+      border: 2px solid var(--ink); border-radius: 999px;
+      padding: 5px 12px; background: var(--yellow);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 84px 0 64px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.01em;
+      color: var(--ink2); margin-bottom: 22px;
+      border: 2px solid var(--ink); border-radius: 999px;
+      padding: 6px 14px; background: var(--card);
+      box-shadow: var(--shadow-sm);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--keep); border: 1.5px solid var(--ink); }
+    h1 {
+      font-size: clamp(38px, 7vw, 68px);
+      line-height: 1.02; letter-spacing: -0.03em; font-weight: 700;
+      max-width: 12ch; margin-bottom: 22px;
+    }
+    h1 .hl { color: var(--accent); }
+    .sub {
+      font-size: clamp(17px, 2.3vw, 21px);
+      color: var(--ink2); max-width: 52ch; margin-bottom: 34px;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font); font-weight: 600; font-size: 16px;
+      text-decoration: none; cursor: pointer;
+      border: var(--border); border-radius: 14px;
+      padding: 14px 22px; background: var(--accent); color: #fff;
+      box-shadow: var(--shadow); transition: transform .08s ease, box-shadow .08s ease;
+    }
+    .btn:hover { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--ink); }
+    .btn:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+    .btn.secondary { background: var(--card); color: var(--ink); }
+    .btn small { font-weight: 400; opacity: .8; }
+
+    /* ---------- Trust loop ---------- */
+    .section { padding: 64px 0; }
+    .section-head { max-width: 40ch; margin-bottom: 40px; }
+    .kicker {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+    }
+    h2 { font-size: clamp(28px, 4.5vw, 42px); letter-spacing: -0.02em; line-height: 1.08; }
+    .section-head p { color: var(--ink2); font-size: 18px; margin-top: 14px; }
+
+    .loop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .loop-card {
+      background: var(--card); border: var(--border); border-radius: var(--radius);
+      padding: 26px 24px; box-shadow: var(--shadow);
+    }
+    .loop-num {
+      display: inline-grid; place-items: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      border: 2px solid var(--ink); font-weight: 700; font-size: 18px;
+      margin-bottom: 18px; box-shadow: 2px 2px 0 var(--ink);
+    }
+    .loop-card:nth-child(1) .loop-num { background: var(--accent); color:#fff; }
+    .loop-card:nth-child(2) .loop-num { background: var(--yellow); }
+    .loop-card:nth-child(3) .loop-num { background: var(--keep); }
+    .loop-card h3 { font-size: 21px; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .loop-card p { color: var(--ink2); font-size: 15.5px; }
+
+    /* ---------- Bento features ---------- */
+    .bento {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: minmax(150px, auto); gap: 18px;
+    }
+    .cell {
+      border: var(--border); border-radius: var(--radius);
+      padding: 24px; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; justify-content: space-between;
+      background: var(--card);
+    }
+    .cell h3 { font-size: 20px; letter-spacing: -0.01em; margin-bottom: 8px; }
+    .cell p { color: var(--ink2); font-size: 15px; }
+    .cell .ic { font-size: 26px; margin-bottom: 14px; }
+    .c-wide { grid-column: span 4; }
+    .c-mid  { grid-column: span 2; }
+    .c-half { grid-column: span 3; }
+    .cell.accent { background: var(--accent); color: #fff; }
+    .cell.accent p { color: rgba(255,255,255,0.85); }
+    .cell.keep { background: var(--keep); }
+    .cell.pink { background: var(--pink); color:#fff; }
+    .cell.pink p { color: rgba(255,255,255,0.9); }
+
+    /* ---------- Privacy ---------- */
+    .privacy {
+      background: var(--ink); color: var(--bg);
+      border-radius: 24px; padding: 52px 44px;
+      border: var(--border); box-shadow: var(--shadow);
+    }
+    .privacy .kicker { color: var(--keep); }
+    .privacy h2 { color: #fff; max-width: 20ch; }
+    .privacy .plist { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 36px; }
+    .privacy .plist div { border-top: 2px solid rgba(255,255,255,0.25); padding-top: 16px; }
+    .privacy .plist h4 { font-size: 16px; margin-bottom: 6px; color:#fff; }
+    .privacy .plist p { font-size: 14.5px; color: rgba(245,243,238,0.7); }
+
+    /* ---------- Footer ---------- */
+    footer { padding: 56px 0 40px; border-top: var(--border); margin-top: 40px; }
+    .foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .foot p { color: var(--ink3); font-size: 14px; }
+    .foot a { color: var(--ink2); text-decoration: none; font-weight: 600; font-size: 14px; }
+    .foot a:hover { color: var(--accent); }
+
+    @media (max-width: 780px) {
+      .loop { grid-template-columns: 1fr; }
+      .bento { grid-template-columns: 1fr; }
+      .c-wide, .c-mid, .c-half { grid-column: span 1; }
+      .privacy .plist { grid-template-columns: 1fr; }
+      .privacy { padding: 40px 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a class="logo" href="#top">
+        <span class="logo-mark"><span>S</span></span>
+        Sortido
+      </a>
+      <span class="nav-tag">Coming to iPhone</span>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow"><span class="dot"></span> Private similar-photo cleanup</span>
+        <h1>Keep the <span class="hl">best</span> shot. Clean the rest.</h1>
+        <p class="sub">
+          Sortido finds your duplicate and similar photos, recommends which one to keep,
+          and shows you exactly why. Compare side by side, zoom into the detail that matters,
+          and review every deletion before anything leaves your library.
+        </p>
+        <div class="cta-row">
+          <a class="btn" href="#how">See how it works →</a>
+          <a class="btn secondary" href="#privacy">On-device &amp; private <small>· nothing uploaded</small></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST LOOP -->
+    <section class="section" id="how">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">The trust loop</div>
+          <h2>Compare. Choose. Confirm.</h2>
+          <p>Sortido never deletes on its own. Every step keeps you in control.</p>
+        </div>
+        <div class="loop">
+          <div class="loop-card">
+            <div class="loop-num">1</div>
+            <h3>Compare</h3>
+            <p>Similar shots — bursts, edits, saves, near-duplicates — grouped together and shown side by side so the differences are obvious.</p>
+          </div>
+          <div class="loop-card">
+            <div class="loop-num">2</div>
+            <h3>Understand</h3>
+            <p>See <em>why</em> a photo is recommended: sharpness, resolution, timing, composition, face clarity. Zoom in before you decide.</p>
+          </div>
+          <div class="loop-card">
+            <div class="loop-num">3</div>
+            <h3>Confirm</h3>
+            <p>Photos move to the Bin first. Change your mind any time. Sortido only asks iOS to delete after you approve the final list.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENTO FEATURES -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="kicker">What makes it different</div>
+          <h2>Not a magic cleaner. A careful one.</h2>
+          <p>Built for people who want help choosing the best shot — without giving up control.</p>
+        </div>
+        <div class="bento">
+          <div class="cell c-wide accent">
+            <div class="ic">🔍</div>
+            <div>
+              <h3>Side-by-side zoom comparison</h3>
+              <p>Pinch into the eyes, the focus, the tiny details that decide which photo is actually the keeper.</p>
+            </div>
+          </div>
+          <div class="cell c-mid keep">
+            <div class="ic">✨</div>
+            <div>
+              <h3>Explainable picks</h3>
+              <p>Concrete factors, not a black box.</p>
+            </div>
+          </div>
+          <div class="cell c-mid">
+            <div class="ic">📊</div>
+            <div>
+              <h3>Biggest savings first</h3>
+              <p>Groups sorted by storage freed, so you start where it counts.</p>
+            </div>
+          </div>
+          <div class="cell c-mid">
+            <div class="ic">🎯</div>
+            <div>
+              <h3>Similar, not just exact</h3>
+              <p>Catches near-duplicates other cleaners miss.</p>
+            </div>
+          </div>
+          <div class="cell c-mid pink">
+            <div class="ic">🗑️</div>
+            <div>
+              <h3>Bin before delete</h3>
+              <p>Restore anything until you confirm.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section class="section" id="privacy">
+      <div class="wrap">
+        <div class="privacy">
+          <div class="kicker">Privacy-first by design</div>
+          <h2>Your photos never leave your iPhone for analysis.</h2>
+          <div class="plist">
+            <div>
+              <h4>On-device analysis</h4>
+              <p>Photo recommendations are computed on your iPhone — not uploaded to a server.</p>
+            </div>
+            <div>
+              <h4>You choose access</h4>
+              <p>Grant full or limited Photos access. Sortido works within what you allow.</p>
+            </div>
+            <div>
+              <h4>You approve deletions</h4>
+              <p>Nothing is removed until you confirm the final list and iOS asks you to.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div>
+        <a class="logo" href="#top" style="margin-bottom:6px;">
+          <span class="logo-mark"><span>S</span></span> Sortido
+        </a>
+        <p>Private photo cleanup for iPhone. Coming soon.</p>
+      </div>
+      <div style="display:flex; gap:22px;">
+        <a href="mailto:felix.muller.fm@gmail.com">Contact</a>
+        <a href="#privacy">Privacy</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="#how">How it works</a>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:22px;">
+      <p style="color:var(--ink3); font-size:13px;">© 2026 Sortido. Not a generic phone cleaner — built for careful photo decisions.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
