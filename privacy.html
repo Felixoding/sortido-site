@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sortido — Privacy Policy</title>
-  <meta name="description" content="How Sortido handles your photos and data. On-device analysis, nothing uploaded, no tracking, no data collection." />
+  <meta name="description" content="How Sortido handles your photos and data. On-device analysis, nothing uploaded, no cross-app tracking, anonymous usage statistics only." />
   <meta name="robots" content="index,follow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -106,11 +106,11 @@
     <div class="wrap">
       <div class="kicker">Legal</div>
       <h1>Privacy Policy</h1>
-      <p class="updated">Last updated: July 15, 2026</p>
+      <p class="updated">Last updated: August 6, 2026</p>
 
       <div class="summary">
         <h2>The short version</h2>
-        <p>Sortido analyzes your photos <strong>on your iPhone</strong>. Your photos are never uploaded to us or to any server for analysis. Sortido has no accounts and no sign-in, collects no personal information, and uses no third-party analytics or advertising. Nothing is deleted until you review the list and iOS asks you to confirm.</p>
+        <p>Sortido analyzes your photos <strong>on your iPhone</strong>. Your photos are never uploaded to us or to any server for analysis. Sortido has no accounts and no sign-in, and collects no personal information. It does record <strong>anonymous usage statistics</strong> — which screens are opened, how long an analysis takes, how many groups it found — to see what works and what doesn't. Never your photos, and never anything computed from them. Nothing is deleted until you review the list and iOS asks you to confirm.</p>
       </div>
 
       <h2 class="sec">Photo library access</h2>
@@ -119,6 +119,7 @@
 
       <h2 class="sec">On-device processing</h2>
       <p>All photo analysis — comparing images, scoring quality, and grouping similar shots — runs locally on your device using Apple's on-device frameworks. The results are cached <strong>on your device</strong> so the app stays fast. Your image data is not sent to Sortido or to any external service for this analysis.</p>
+      <p>One feature reaches outside the device. <strong>Places</strong> groups your photos by where they were taken, and to turn a photo's stored coordinates into a place name it uses Apple's geocoding service — so those coordinates go to Apple, under Apple's privacy policy, not to Sortido. No photos are sent, and this uses location data already saved in your photos by the camera; Sortido never asks for location permission and never reads your device's current position.</p>
 
       <h2 class="sec">Deletion is always your choice</h2>
       <p>Sortido never deletes photos automatically. When you choose to clean up, Sortido shows you the exact list of photos proposed for removal so you can review it. Deletion happens only after you confirm and iOS presents its own system confirmation. Removed photos go to your <strong>Recently Deleted</strong> album, where iOS keeps them recoverable for a period before permanent deletion.</p>
@@ -129,8 +130,16 @@
         <li>No account, email, or sign-in is required to use the app.</li>
         <li>Your photos and the analysis results stay on your device.</li>
         <li>App preferences and settings are stored locally on your device (via iOS), not on our servers.</li>
-        <li>There are no third-party advertising or analytics SDKs in the app, and Sortido does not track you across apps or websites.</li>
+        <li>There are no third-party advertising SDKs in the app, and Sortido does not track you across apps or websites.</li>
+        <li>Sortido does record anonymous usage statistics about how the app itself is used — described in full below.</li>
       </ul>
+
+      <h2 class="sec">Anonymous usage statistics</h2>
+      <p>To understand which parts of Sortido are useful and where it is slow, the app sends a small set of anonymous events to <strong>PostHog</strong>, an analytics service. These are stored on PostHog's <strong>European</strong> servers. Sortido gives PostHog no name, email, or account — events are grouped only by a random identifier generated on your device, which points to nothing outside the app.</p>
+      <p><strong>What is recorded:</strong> the names of screens you open and which features you use — for example opening a comparison, using zoom, compressing a video, or saving a PDF; when an analysis starts and finishes, and how long it took; how many similar groups, duplicates, and screenshots the analysis found; how many photos you selected for cleanup and how many you confirmed for deletion; a rough size band for your library (for example "2,000–10,000 photos" — never the exact number); whether you granted full access, limited access, or no access to your photos; the device model, iOS version, and app version your phone reports; and an approximate, city-level location worked out from your network connection (see below).</p>
+      <p><strong>About your IP address and approximate location:</strong> as with any internet connection, making the request reveals your IP address to PostHog's servers. Sortido's project shortens it before it is stored — the last part is replaced with zero, so <code>12.214.31.144</code> becomes <code>12.214.31.0</code> — and the shortened address is used to work out an approximate location, roughly at city level, which is stored alongside your events. That tells us which regions Sortido is used in. It is an estimate from your network connection, not a position: Sortido never reads your device's GPS or Location Services, and never asks for location permission.</p>
+      <p><strong>What is never recorded:</strong> your photos or any part of them. No image data, no thumbnails, no filenames, no photo identifiers, and nothing computed from the contents of your pictures. The events are numbers and screen names only.</p>
+      <p>This is not advertising and not cross-app tracking: Sortido does not use the iOS advertising identifier, does not build a profile of you, and does not share this data with advertisers or data brokers.</p>
 
       <h2 class="sec">Beta distribution (TestFlight)</h2>
       <p>During the beta, Sortido is distributed through Apple's <strong>TestFlight</strong>. If you install the app this way, Apple may collect standard installation and crash diagnostics as described in Apple's own privacy policy. This is handled by Apple, not by Sortido. If you send feedback through TestFlight, that feedback is shared with us so we can improve the app.</p>
