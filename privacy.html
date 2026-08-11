@@ -106,11 +106,11 @@
     <div class="wrap">
       <div class="kicker">Legal</div>
       <h1>Privacy Policy</h1>
-      <p class="updated">Last updated: August 6, 2026</p>
+      <p class="updated">Last updated: August 11, 2026</p>
 
       <div class="summary">
         <h2>The short version</h2>
-        <p>Sortido analyzes your photos <strong>on your iPhone</strong>. Your photos are never uploaded to us or to any server for analysis. Sortido has no accounts and no sign-in, and collects no personal information. It does record <strong>anonymous usage statistics</strong> — which screens are opened, how long an analysis takes, how many groups it found — to see what works and what doesn't. Never your photos, and never anything computed from them. Nothing is deleted until you review the list and iOS asks you to confirm.</p>
+        <p>Sortido analyzes your photos <strong>on your iPhone</strong>. Your photos are never uploaded to us or to any server for analysis. Sortido has no accounts and no sign-in, and collects no personal information. It does record <strong>anonymous usage statistics</strong> — which screens are opened, how long an analysis takes, how many groups it found — plus a crash report if it crashes, to see what works and what doesn't. Never your photos, and never anything computed from them. Nothing is deleted until you review the list and iOS asks you to confirm.</p>
       </div>
 
       <h2 class="sec">Photo library access</h2>
@@ -131,13 +131,14 @@
         <li>Your photos and the analysis results stay on your device.</li>
         <li>App preferences and settings are stored locally on your device (via iOS), not on our servers.</li>
         <li>There are no third-party advertising SDKs in the app, and Sortido does not track you across apps or websites.</li>
-        <li>Sortido does record anonymous usage statistics about how the app itself is used — described in full below.</li>
+        <li>Sortido does record anonymous usage statistics and crash reports about how the app itself is used — described in full below.</li>
       </ul>
 
       <h2 class="sec">Anonymous usage statistics</h2>
       <p>To understand which parts of Sortido are useful and where it is slow, the app sends a small set of anonymous events to <strong>PostHog</strong>, an analytics service. These are stored on PostHog's <strong>European</strong> servers. Sortido gives PostHog no name, email, or account — events are grouped only by a random identifier generated on your device, which points to nothing outside the app.</p>
       <p><strong>What is recorded:</strong> the names of screens you open and which features you use — for example opening a comparison, using zoom, compressing a video, or saving a PDF; when an analysis starts and finishes, and how long it took; how many similar groups, duplicates, and screenshots the analysis found; how many photos you selected for cleanup and how many you confirmed for deletion; a rough size band for your library (for example "2,000–10,000 photos" — never the exact number); whether you granted full access, limited access, or no access to your photos; the device model, iOS version, and app version your phone reports; and an approximate, city-level location worked out from your network connection (see below).</p>
       <p><strong>About your IP address and approximate location:</strong> as with any internet connection, making the request reveals your IP address to PostHog's servers. Sortido's project shortens it before it is stored — the last part is replaced with zero, so <code>12.214.31.144</code> becomes <code>12.214.31.0</code> — and the shortened address is used to work out an approximate location, roughly at city level, which is stored alongside your events. That tells us which regions Sortido is used in. It is an estimate from your network connection, not a position: Sortido never reads your device's GPS or Location Services, and never asks for location permission.</p>
+      <p><strong>Crash reports:</strong> if Sortido crashes, it sends a report so the bug can be found and fixed. The report contains the type of crash and the technical trace of which parts of Sortido's own code were running — no photos, and no file names. Crash reports often carry a free-text error message; Sortido <strong>deletes that message on your device</strong> before the report is sent, because a message about a file could otherwise repeat text read from one of your documents.</p>
       <p><strong>What is never recorded:</strong> your photos or any part of them. No image data, no thumbnails, no filenames, no photo identifiers, and nothing computed from the contents of your pictures. The events are numbers and screen names only.</p>
       <p>This is not advertising and not cross-app tracking: Sortido does not use the iOS advertising identifier, does not build a profile of you, and does not share this data with advertisers or data brokers.</p>
 
