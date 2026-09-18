@@ -145,12 +145,13 @@
       <h2 class="sec">Your usage profile</h2>
       <p>So we can tell whether people come back to Sortido after the first week &mdash; and not just how many times the app was opened in total &mdash; the events described above are grouped into a <strong>profile</strong>. Because of that, Apple's privacy labels for Sortido mark this data as &ldquo;linked to you&rdquo;.</p>
       <p><strong>What the profile is keyed on:</strong> a random code generated on your iPhone the first time you open the app, for example <code>018f3c2a-&hellip;</code>. It is not your Apple Account, your device's serial number, or the iOS advertising identifier. It is stored inside Sortido's own app container, which means <strong>deleting the app resets it</strong> &mdash; a reinstall looks like a brand-new person to us.</p>
-      <p><strong>What the profile holds &mdash; three facts, and nothing else:</strong></p>
+      <p><strong>What Sortido puts on the profile &mdash; three facts:</strong></p>
       <ul>
         <li>whether you granted full, limited, or no access to your photos;</li>
         <li>the rough size band of your library (for example &ldquo;2,000&ndash;10,000 photos&rdquo; &mdash; never the exact number);</li>
-        <li>the app version you first installed.</li>
+        <li>the app version you were on when the profile was created &mdash; for anyone who installed Sortido before this change, that is the version this change shipped in, not the one they first installed.</li>
       </ul>
+      <p><strong>What PostHog adds to it:</strong> PostHog attaches some of what it already receives with your events to the profile as well &mdash; the approximate, city-level location worked out from your shortened IP address (described above), and the device model, iOS version and app version your phone reports, as first seen and as last seen. Sortido does not choose these individually; they come with keeping a profile at all.</p>
       <p>It holds nothing from your photos, and no name, email, or account, because Sortido never asks for any.</p>
       <p><strong>It includes usage recorded since you installed the app.</strong> Events from before this policy was updated were collected under the earlier wording, which called them anonymous. They carry the same random code, so they now appear under the same profile. We are saying so here rather than leaving it implied.</p>
       <p><strong>About deletion requests:</strong> we cannot act on one, and it is worth being plain about why. Sortido holds nothing that identifies you &mdash; no name, no email, no account &mdash; so there is no way for us to match a request to a profile, and no way to verify that a profile is yours. What you can do is delete the app, which resets the code and ends the profile's connection to your phone for good.</p>
